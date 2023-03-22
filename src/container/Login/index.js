@@ -1,7 +1,15 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { TextField, Button, Typography, Link, Container, Snackbar, Alert } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Typography,
+  Link,
+  Container,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import styled from "@emotion/styled";
 import logoIcon from "../../assets/logoIcon.png";
@@ -56,21 +64,24 @@ const Login = () => {
       password: inputs.password,
     };
     const res = await loginUser(userdata);
-    if(res){
-    setData(res?.data)
-    setOpen(true)
-    if (res.status === 200) {
-      dispatch(login(res?.data?.access_token))
-      if (res?.data?.role === 1) {
-        navigate('/admin/dashboard')
-      } else navigate('/lists/companies')
+    if (res) {
+      if (res.status === 400) {
+        setData(res?.data);
+        setOpen(true);
+      }
+      if (res.status === 200) {
+        setData(res?.data);
+        setOpen(true);
+        dispatch(login(res?.data?.access_token));
+        if (res?.data?.role === 1) {
+          navigate("/admin/dashboard");
+        } else navigate("/lists/companies");
+      } else navigate("/");
     }
-    else navigate('/')
-  };
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpen(false);
@@ -79,16 +90,11 @@ const Login = () => {
   return (
     <>
       <StyledTypography variant="h4">
-        <img src={logoIcon}
-          alt="logoIcon"
-          width="40px"
-          height="40px"
-        />
+        <img src={logoIcon} alt="logoIcon" width="40px" height="40px" />
         Alpha Search
       </StyledTypography>
       <Container maxWidth="xs">
-        <form onSubmit={handleSubmit}
-          style={{ marginTop: "100px" }}>
+        <form onSubmit={handleSubmit} style={{ marginTop: "100px" }}>
           {LoginFormData.map((item, i) => {
             const { name, type, placeholder } = item;
             const value = inputs?.[name];
@@ -96,7 +102,7 @@ const Login = () => {
               <TextField
                 sx={{
                   mb: 2,
-                  fontSize: "16px"
+                  fontSize: "16px",
                 }}
                 variant="standard"
                 key={i}
@@ -129,13 +135,11 @@ const Login = () => {
         </form>
         <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
           {data?.message === "user logged in succesfully" ? (
-            <Alert severity="success">
-              Login successful
-            </Alert>
+            <Alert severity="success">Login successful</Alert>
+          ) : data?.message === "user does not exists" ? (
+            <Alert severity="error">{data?.message}</Alert>
           ) : (
-            <Alert severity="error">
-              Incorrect email/password!
-            </Alert>
+            <Alert severity="error">Incorrect email/password!</Alert>
           )}
         </Snackbar>
       </Container>

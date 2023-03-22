@@ -121,6 +121,7 @@ const CreateAdmin = () => {
             <TextField
               variant="standard"
               fullWidth
+              required
               type="text"
               placeholder="first name*"
               name="first_name"
@@ -135,6 +136,7 @@ const CreateAdmin = () => {
             <TextField
               variant="standard"
               fullWidth
+              required
               type="text"
               placeholder="last name*"
               name="last_name"
@@ -149,6 +151,7 @@ const CreateAdmin = () => {
         <TextField
           variant="standard"
           fullWidth
+          required
           type="text"
           placeholder="email address*"
           name="email"
@@ -159,6 +162,7 @@ const CreateAdmin = () => {
         <TextField
           variant="standard"
           fullWidth
+          required
           type="password"
           placeholder="password*"
           name="password"
@@ -169,6 +173,7 @@ const CreateAdmin = () => {
         <TextField
           variant="standard"
           fullWidth
+          required
           type="password"
           placeholder="confirm password *"
           name="confirmPassword"
@@ -180,6 +185,7 @@ const CreateAdmin = () => {
           variant="standard"
           sx={{ mt: 1, mb: 2 }}
           fullWidth
+          required
           type="text"
           placeholder="company name*"
           name="companyname"
