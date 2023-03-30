@@ -27,6 +27,7 @@ const CompanyList = () => {
   };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
   const Companies = detail?.map((item) => {
     return item["_source"];

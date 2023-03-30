@@ -79,6 +79,7 @@ export default function CompanyData() {
   };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(1);
   };
   useEffect(() => {
     setLoading(true);
@@ -168,6 +169,7 @@ export default function CompanyData() {
           handleDelete={handleDelete}
         />
         <BreadcrumbsWrapper>
+          
           <Typography color="text.primary">Companies</Typography>
           <Typography color="text.primary">Data</Typography>
         </BreadcrumbsWrapper>

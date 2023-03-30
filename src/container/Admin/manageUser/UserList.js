@@ -44,6 +44,7 @@ export default function UserData() {
   };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(1);
   };
   const handleClick = (params) => {
     setUserId(params);
