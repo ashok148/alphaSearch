@@ -1,31 +1,37 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { Container, Grid, MenuItem, Select, TextField } from '@mui/material';
-import StyledButton from './StyledButton';
-import { updateUserDetail } from '../api/userApi';
-import { getRoles } from '../api/roleApi';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import { Container, Grid, MenuItem, Select, TextField } from "@mui/material";
+import StyledButton from "./StyledButton";
+import { updateUserDetail } from "../api/userApi";
+import { getRoles } from "../api/roleApi";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
 
-export default function UserModal({ open, setOpen, userId, formData, setFormData }) {
-const [roles, setRoles] = React.useState([]);
+export default function UserModal({
+  open,
+  setOpen,
+  userId,
+  formData,
+  setFormData,
+}) {
+  const [roles, setRoles] = React.useState([]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userdata = {
@@ -38,28 +44,28 @@ const [roles, setRoles] = React.useState([]);
     const res = await updateUserDetail(token, userId, roleId, userdata);
     if (res) {
       if (res.status === 400) {
-        alert("Something went wrong!")
+        alert("Something went wrong!");
       }
       if (res.status === 200) {
         setOpen(false);
       }
     }
   };
-  console.log("Rolllllleeeeeeee",formData.role.role_name);
-React.useEffect(()=>{
-  const handleApi = async () => {
-    const token = localStorage.getItem("authToken");
-    const res = await getRoles(token);
-    if (res) {
-      if (res?.status === 200) {
-        setRoles(res?.data);
-      } else {
-        alert("Something went wrong!");
+console.log(">>>>",formData);
+  React.useEffect(() => {
+    const handleApi = async () => {
+      const token = localStorage.getItem("authToken");
+      const res = await getRoles(token);
+      if (res) {
+        if (res?.status === 200) {
+          setRoles(res?.data);
+        } else {
+          alert("Something went wrong!");
+        }
       }
-    }
-  };
-  handleApi();
-},[])
+    };
+    handleApi();
+  }, []);
   const handleClose = () => setOpen(false);
 
   return (
@@ -71,7 +77,11 @@ React.useEffect(()=>{
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography sx={{ textAlign: 'center', mb: 4 }} variant="h6" component="h2">
+          <Typography
+            sx={{ textAlign: "center", mb: 4 }}
+            variant="h6"
+            component="h2"
+          >
             Update User Detail
           </Typography>
           <Container>
@@ -131,20 +141,21 @@ React.useEffect(()=>{
                 onChange={handleChange}
               />
               <Grid>
+                <div>Select Role :</div>
                 <Select
-                  value={formData?.role?.role_id}
+                  value={formData?.role}
+                  defaultValue={formData?.role?.role_name}
                   name="role"
                   onChange={handleChange}
                 >
-                  {roles.map((role)=>(
+                  {roles.map((role) => (
                     <MenuItem value={role?.role_id}>{role?.role_name}</MenuItem>
                   ))}
-                 
                 </Select>
               </Grid>
-              <Grid sx={{ display: 'flex',
-               justifyContent: 'space-between', mt: 2 
-               }}>
+              <Grid
+                sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
+              >
                 <StyledButton
                   textColor="#fff"
                   backgroundColor="#00a3d0"

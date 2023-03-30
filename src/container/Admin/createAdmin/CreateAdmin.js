@@ -28,7 +28,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 }));
 
 const CreateAdmin = () => {
-
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",

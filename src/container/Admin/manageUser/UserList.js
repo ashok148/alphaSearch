@@ -31,10 +31,11 @@ export default function UserData() {
     last_name: "",
     email: "",
     company: "",
-    role: {
-      role_name: "",
-      role_id: ""
-    }
+    role: ""
+    // role: {
+    //   role_name: "",
+    //   role_id: ""
+    // }
   });
   const handlePageChange = (event, newPage) => {
     if (newPage >= 1 && newPage < totalRows) {

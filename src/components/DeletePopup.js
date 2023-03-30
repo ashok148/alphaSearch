@@ -20,8 +20,8 @@ export default function DeletePopover({ anchorEl, setAnchorEl,handleDelete }) {
         // anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: "center",
+          horizontal: "center",
         }}
       >
         <Typography sx={{ p: 2 }}>

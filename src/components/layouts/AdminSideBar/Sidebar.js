@@ -92,25 +92,28 @@ const Drawer = styled(MuiDrawer, {
     "& .MuiDrawer-paper": closedMixin(theme),
   }),
 }));
-const menuItems = [
-  { label: "Send Invite", Icon: <SendIcon /> },
-  { label: "Create Admin", Icon: <AddBoxIcon /> },
-  { label: "Manage Company", Icon: <ApartmentIcon /> },
-  { label: "Manage User", Icon: <PeopleIcon /> },
-];
+
 export default function AdminSideBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
-  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
+  const menuItems = [
+    { label: "Send Invite", key: "/admin/send-invite", Icon: <SendIcon /> },
+    { label: "Create Admin", key: "/admin/create-admin", Icon: <AddBoxIcon /> },
+    {
+      label: "Manage Company",
+      key: "/admin/companies/data",
+      Icon: <ApartmentIcon />,
+    },
+    { label: "Manage User", key: "/admin/user/data", Icon: <PeopleIcon /> },
+  ];
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -136,13 +139,8 @@ export default function AdminSideBar() {
     navigate("/change-password");
   };
 
-  const handleListItemClick = (listItemText) => {
-    setSelectedMenuItem(listItemText, () => {});
-    if (listItemText === "Send Invite") navigate("/admin/send-invite");
-    else if (listItemText === "Create Admin") navigate("/admin/create-admin");
-    else if (listItemText === "Manage Company")
-      navigate("/admin/companies/data");
-    else navigate("/admin/user/data");
+  const handleListItemClick = (key) => {
+    navigate(key);
   };
 
   const renderMenu = (
@@ -217,7 +215,10 @@ export default function AdminSideBar() {
           {menuItems.map((item, index) => (
             <ListItem key={item} disablePadding sx={{ display: "block" }}>
               <ListItemButton
-                onClick={() => handleListItemClick(item?.label)}
+                selected={
+                  window.location.pathname.includes(item?.key) ? true : false
+                }
+                onClick={() => handleListItemClick(item?.key)}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",
@@ -231,7 +232,9 @@ export default function AdminSideBar() {
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
                       color: `${
-                        selectedMenuItem === item?.label ? "#00a3d0" : ""
+                        window.location.pathname.includes(item?.key)
+                          ? "#00a3d0"
+                          : ""
                       }`,
                     }}
                   >
