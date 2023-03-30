@@ -109,7 +109,7 @@ export default function ModalSection({companyDetail}) {
             <Box>
               <span>Employees</span>
               <Typography variant="h5" fontWeight={600}>
-                {companyDetail.Employees}
+                {companyDetail?.Employees}
               </Typography>
             </Box>
             <Box>
@@ -215,7 +215,7 @@ export default function ModalSection({companyDetail}) {
           fontWeight={700}
           sx={{ display: "flex", justifyContent: "space-between" }}
         >
-          {companyDetail.Employees}
+          {companyDetail?.Employees}
           <Chip
             label="company size"
             sx={{ bgcolor: "#00a3d0", color: "#fff" }}

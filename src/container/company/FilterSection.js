@@ -20,12 +20,17 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import styled from "@emotion/styled";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
-import MultiSearch from "../MultiSearch";
-import { getLocationApi, getOperationModel } from "../../api/searchApi";
+import {
+  getLocationApi,
+  getOperationModel,
+  operatingModelApi,
+} from "../../api/searchApi";
+import MultiTermSearch from "../../components/MultiTermSearch";
 
 const PaperWraper = styled(Paper)(({ theme }) => ({
   width: "100%",
   maxWidth: 320,
+  height: "100vh",
   maxHeight: 500,
   bgcolor: "background.paper",
   position: "fixed",
@@ -92,39 +97,106 @@ const ListItem = styled("span")(({ theme }) => ({
   fontSize: "12px",
 }));
 
-export default function FilterSection({ handleFilterChange }) {
+export default function FilterSection({
+  handleFilterChange,
+  page,
+  rowsPerPage,
+  query,
+  setLoading,
+}) {
+  const token = localStorage.getItem("authToken");
   const [revenue, setRevenue] = useState([0, 5000000]);
   const [employee, setEmployee] = useState([0, 100000]);
   const [location, setLocation] = useState([]);
   const [locationList, setLocationList] = useState([]);
   const [operationModel, setOperationModel] = useState();
+  const [excludeOperationModel, setexcludeOperationModel] = useState();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [anchorElxclude, setAnchorExclude] = useState(null);
+  const [includeIndustry, setIncludeIndustry] = useState("");
+  const [excludeIndustry, setExcludeIndustry] = useState("");
+  const [selectedIncludeIndustry, setSelectedIncludeIndustry] = useState([]);
+  const [selectedExcludeIndustry, setSelectedExcludeIndustry] = useState([]);
+  const [includeTerm, setIncludeTerm] = useState([]);
+  const [excludeTerm, setExcludeTerm] = useState([]);
+  const [clear, setClear] = useState(false);
 
-  const locationData = locationList?.map((location) => location?.key);
-  const operationModelData = operationModel?.map((data) => data?.key);
+  const locationData =
+    locationList && locationList?.map((location) => location?.key);
 
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
-  };
-  const filteredList = operationModelData?.filter((item) =>
-    item.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const operationModelData =
+    operationModel &&
+    operationModel?.map((data) => {
+      if (data?.key) {
+        return data?.key;
+      } else {
+        return data?._source?.Industry;
+      }
+    });
 
-  const handleSearchClick = (event) => {
+  const handleOperationModel = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  const handleSearchClose = () => {
-    setAnchorEl(null);
+  const handleOperationModelExclude = (event) => {
+    setAnchorExclude(event.currentTarget);
+  };
+  const handleIncludeIndustry = async (event) => {
+    setIncludeIndustry(event.target.value);
+    const res = await operatingModelApi(token, event.target.value);
+    if (res) {
+      if (res.status === 200) {
+        setOperationModel(res?.data);
+      }
+    }
+    setClear(false);
+  };
+  const handleIncludeCkecked = async (ckeckedItem) => {
+    const index = selectedIncludeIndustry.indexOf(ckeckedItem);
+    if (index === -1) {
+      setSelectedIncludeIndustry([...selectedIncludeIndustry, ckeckedItem]);
+    } else {
+      setSelectedIncludeIndustry(
+        selectedIncludeIndustry.filter(
+          (selectedItem) => selectedItem !== ckeckedItem
+        )
+      );
+    }
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const handleExcludeCkecked = async (item) => {
+    const index = selectedExcludeIndustry.indexOf(item);
+    if (index === -1) {
+      setSelectedExcludeIndustry([...selectedExcludeIndustry, item]);
+    } else {
+      setSelectedExcludeIndustry(
+        selectedExcludeIndustry.filter((selectedItem) => selectedItem !== item)
+      );
+    }
+  };
 
-  const handleSelect = (event, newValue) => {
+  const handleExcludeIndustry = async (event) => {
+    setExcludeIndustry(event.target.value);
+    const res = await operatingModelApi(token, event.target.value);
+    if (res) {
+      if (res.status === 200) {
+        setexcludeOperationModel(res?.data);
+      }
+    }
+    setClear(false);
+  };
+
+  useEffect(() => {
+    try {
+      getLocationApi(token).then((res) => {
+        setLocationList(res?.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const handleSelectLocation = (event, newValue) => {
     setLocation(newValue);
-    handleFilterChange(location);
   };
   const handleRevenue = (event, newValue) => {
     setRevenue(newValue);
@@ -132,26 +204,71 @@ export default function FilterSection({ handleFilterChange }) {
   const handleEmployee = (event, newValue) => {
     setEmployee(newValue);
   };
+  const handleSearchClose = () => {
+    setAnchorEl(null);
+  };
+  const handleExcludeClose = () => {
+    setAnchorExclude(null);
+  };
   function valuetext(value) {
     return `$${value.toLocaleString()}`;
   }
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+  const openExclude = Boolean(anchorElxclude);
+  const idExclude = openExclude ? "simple-popover" : undefined;
+
   function valueLableFormat(value) {
     return `${value.toLocaleString()}`;
   }
 
   useEffect(() => {
     try {
-      getLocationApi().then((res) => {
-        setLocationList(res?.data);
-      });
-      getOperationModel().then((res) => {
+      getOperationModel(token).then((res) => {
         setOperationModel(res?.data);
+        setexcludeOperationModel(res?.data);
       });
     } catch (error) {
       console.log(error);
     }
-  }, [setLocationList, setOperationModel]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clear]);
 
+  const excludeOperationModelData =
+    excludeOperationModel &&
+    excludeOperationModel?.map((data) => {
+      if (data?.key) {
+        return data?.key;
+      } else {
+        return data?._source?.Industry;
+      }
+    });
+
+  useEffect(() => {
+    setLoading(true);
+    handleFilterChange(
+      location,
+      includeTerm,
+      excludeTerm,
+      revenue,
+      employee,
+      selectedIncludeIndustry,
+      selectedExcludeIndustry,
+      query
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    location,
+    includeTerm,
+    excludeTerm,
+    revenue,
+    employee,
+    selectedIncludeIndustry,
+    selectedExcludeIndustry,
+    query,
+    page,
+    rowsPerPage,
+  ]);
   return (
     <PaperWraper elevation={3}>
       <List
@@ -170,9 +287,9 @@ export default function FilterSection({ handleFilterChange }) {
             </AccordionSummary>
             <AccordionDetails>
               <p>Include these terms</p>
-              <MultiSearch />
+              <MultiTermSearch value={includeTerm} setValue={setIncludeTerm} />
               <p>Exclude these terms</p>
-              <MultiSearch />
+              <MultiTermSearch value={excludeTerm} setValue={setExcludeTerm} />
             </AccordionDetails>
           </Accordion>
           <Accordion>
@@ -182,18 +299,7 @@ export default function FilterSection({ handleFilterChange }) {
             <AccordionDetails>
               <span>Industry</span>
               <p>Include</p>
-              <Search onClick={handleSearchClick}>
-                <SearchIconWrapper>
-                  <SearchIcon sx={{ color: "#00a3d0" }} />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search"
-                  inputProps={{ "aria-label": "search" }}
-                  disabled
-                />
-              </Search>
-              <p>Exclude</p>
-              <Search onClick={handleSearchClick}>
+              <Search onClick={handleOperationModel}>
                 <SearchIconWrapper>
                   <SearchIcon sx={{ color: "#00a3d0" }} />
                 </SearchIconWrapper>
@@ -214,6 +320,7 @@ export default function FilterSection({ handleFilterChange }) {
                 }}
               >
                 <Box sx={{ p: 3, width: 500, height: 300 }}>
+                  <span>Industry include</span>
                   <Search>
                     <SearchIconWrapper>
                       <SearchIcon sx={{ color: "#00a3d0" }} />
@@ -221,21 +328,91 @@ export default function FilterSection({ handleFilterChange }) {
                     <StyledInputBase
                       placeholder="Search classification"
                       inputProps={{ "aria-label": "search" }}
-                      value={searchQuery}
-                      onChange={handleSearch}
+                      value={includeIndustry}
+                      onChange={handleIncludeIndustry}
                     />
                     <ClearIcon
                       fontSize="2px"
-                      onClick={() => setSearchQuery("")}
+                      onClick={() => {
+                        setIncludeIndustry("");
+                        setClear(true);
+                      }}
                     />
                   </Search>
-                  {filteredList?.map((item, key) => {
+                  {operationModelData?.map((item, key) => {
                     return (
                       <div style={popupStyle}>
-                        <Checkbox />
-                        <ListItem key={key}>
-                          {item}
-                        </ListItem>
+                        <Checkbox
+                          key={item}
+                          checked={
+                            selectedIncludeIndustry.includes(item)
+                              ? true
+                              : false
+                          }
+                          value={selectedIncludeIndustry}
+                          onClick={() => handleIncludeCkecked(item)}
+                        />
+                        <ListItem key={key}>{item}</ListItem>
+                      </div>
+                    );
+                  })}
+                </Box>
+              </Popover>
+              <p>Exclude</p>
+              <Search onClick={handleOperationModelExclude}>
+                <SearchIconWrapper>
+                  <SearchIcon sx={{ color: "#00a3d0" }} />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search"
+                  inputProps={{ "aria-label": "search" }}
+                  disabled
+                />
+              </Search>
+              <Popover
+                id={idExclude}
+                open={openExclude}
+                anchorEl={anchorElxclude}
+                onClose={handleExcludeClose}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+              >
+                <Box sx={{ p: 3, width: 500, height: 300 }}>
+                  <span>Industry exclude</span>
+                  <Search>
+                    <SearchIconWrapper>
+                      <SearchIcon sx={{ color: "#00a3d0" }} />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                      placeholder="Search classification"
+                      inputProps={{ "aria-label": "search" }}
+                      value={excludeIndustry}
+                      onChange={handleExcludeIndustry}
+                    />
+                    <ClearIcon
+                      fontSize="2px"
+                      onClick={() => {
+                        setExcludeIndustry("");
+                        setClear(true);
+                      }}
+                    />
+                  </Search>
+                  {excludeOperationModelData?.map((item, key) => {
+                    return (
+                      <div style={popupStyle}>
+                        <Checkbox
+                          key={item}
+                          checked={
+                            selectedExcludeIndustry.includes(item)
+                              ? true
+                              : false
+                          }
+                          value={selectedExcludeIndustry}
+                          onClick={() => handleExcludeCkecked(item)}
+                        />
+                        <ListItem key={key}>{item}</ListItem>
                       </div>
                     );
                   })}
@@ -252,7 +429,7 @@ export default function FilterSection({ handleFilterChange }) {
                 multiple
                 id="tags-outlined"
                 value={location}
-                onChange={handleSelect}
+                onChange={handleSelectLocation}
                 options={locationData}
                 getOptionLabel={(option) => option}
                 filterSelectedOptions
@@ -306,5 +483,5 @@ export default function FilterSection({ handleFilterChange }) {
         </Box>
       </List>
     </PaperWraper>
-  );
+  )
 }

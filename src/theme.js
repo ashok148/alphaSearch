@@ -43,31 +43,6 @@ export const alphaSearchTheme = createTheme({
   },
   spacing: factor => `${0.5 * factor}rem`,
   overrides: {
-    MuiContainer: {
-      root: {
-        width: '170%'
-      },
-      contained: {
-        boxShadow: 'none',
-        '&:hover': {
-          boxShadow: 'none',
-        },
-      },
-      containedPrimary: {
-        backgroundColor: blue[500],
-        color: 'white',
-      },
-      containedSecondary: {
-        backgroundColor: red[500],
-        color: 'white',
-      },
-    },
-    MuiInputLabel: {
-      root: {
-        fontSize: '1rem',
-        fontWeight: 'bold',
-        marginBottom: '8px',
-      },
-    },
+   
   },
 });

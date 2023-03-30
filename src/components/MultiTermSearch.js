@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexWrap: "wrap",
     "& > *": {
-      // margin: theme.spacing(0.5),
+      margin: theme.spacing(0.5),
     },
   },
   inputRoot: {
@@ -24,24 +24,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MultiSearch = () => {
+const MultiTermSearch = ({value,setValue}) => {
   const classes = useStyles();
-  const [value, setValue] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [include, setInclude] = useState("");
 
   const handleInputChange = (event, newInputValue) => {
-    setInputValue(newInputValue);
+    setInclude(newInputValue);
   };
 
+
   const handleKeyDown = (event) => {
-    if (event.key === "Enter" && inputValue) {
-      setValue([...value, inputValue]);
-      setInputValue("");
+    if (event.key === "Enter" && include) {
+      setValue([...value, include]);
+      setInclude("");
     }
   };
 
   const handleDelete = (chipToDelete) => () => {
-    setValue((chips) => chips.filter((chip) => chip !== chipToDelete));
+    setValue((chips) => chips?.filter((chip) => chip !== chipToDelete));
   };
 
   return (
@@ -54,10 +54,10 @@ const MultiSearch = () => {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
-        inputValue={inputValue}
+        inputValue={include}
         onInputChange={handleInputChange}
         renderTags={(tagValue, getTagProps) =>
-          tagValue.map((option, index) => (
+          tagValue?.map((option, index) => (
             <Chip          
               variant="outlined"
               label={option}
@@ -78,11 +78,11 @@ const MultiSearch = () => {
               classes: { root: classes.inputRoot, input: classes.inputInput },
               endAdornment: (
                 <div >
-                  {inputValue && (
+                  {include && (
                     <Chip
                       variant="outlined"
-                      label={inputValue}
-                      onDelete={handleDelete(inputValue)}
+                      label={include}
+                      onDelete={handleDelete(include)}
                     />
                   )}
                 </div>
@@ -95,4 +95,4 @@ const MultiSearch = () => {
   );
 };
 
-export default MultiSearch;
+export default MultiTermSearch;

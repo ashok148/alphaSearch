@@ -11,7 +11,7 @@ const NotFound = () => {
   const [isValidToken, setIsValidToken] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
-
+  const [emailId, setEmailId] = useState("");
   useEffect(() => {
     setLoading(true);
     const urlSearchParams = new URLSearchParams(window.location.search);
@@ -20,6 +20,7 @@ const NotFound = () => {
     validateToken(params.token)
       .then((res) => {
         if (res.status === 200) {
+          setEmailId(res?.data?.email);
           setIsValidToken(true);
           setLoading(false);
         } else if (res.status === 400) {
@@ -39,7 +40,7 @@ const NotFound = () => {
       <LoadingBackdrop open={loading} />
       {isValidToken ? (
         <div>
-          <Signup />
+          <Signup emailId={emailId}/>
         </div>
       ) : errorMessage ? (
         <div className="PageNotFound">

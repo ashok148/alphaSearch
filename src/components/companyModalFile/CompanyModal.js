@@ -1,10 +1,10 @@
 import { Box, Grid, Link, Modal, Paper, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import styled from "@emotion/styled";
-import StyledButton from "../components/StyledButton";
+import StyledButton from "../StyledButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import ModalSideBar from "../components/companyModalFile/ModalSideBar";
-import ModalSection from "../components/companyModalFile/ModalSection";
+import ModalSideBar from "./ModalSideBar";
+import ModalSection from "./ModalSection";
 
 const BoxWraper = styled(Box)(({ theme }) => ({
   margin: "30px 30px",
@@ -55,14 +55,14 @@ const CompanyModal = ({ open, setOpen, companyDetail }) => {
               variant="outlined"
               sx={{ padding: "10px 20px", borderRadius: 3 }}
             >
-              <img src={companyDetail.Company_Logo_URL} height="50px" width="50px" alt="logo" />
+              <img src={companyDetail?.Company_Logo_URL} height="50px" width="50px" alt="logo" />
             </Paper>
             <div>
               <Typography variant="h4" fontWeight={600}>
-                {companyDetail.Company_Name}
+                {companyDetail?.Company_Name}
               </Typography>
               <Link href="#" color="#00a3d0" fontWeight={700}>
-                {companyDetail.Website}
+                {companyDetail?.Website}
               </Link>
             </div>
           </Grid>
@@ -73,7 +73,7 @@ const CompanyModal = ({ open, setOpen, companyDetail }) => {
               justifyContent: "flex-end",
             }}
           >
-            {ButtonLabel.map((item, key) => {
+            {ButtonLabel?.map((item, key) => {
               return (
                 <StyledButton
                   key={key}

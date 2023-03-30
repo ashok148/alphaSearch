@@ -73,7 +73,7 @@ const ModalSideBar = ({companyDetail}) => {
           Keywords
         </Typography>
         <Grid sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
-          {keywordLabel.map((item, key) => {
+          {keywordLabel?.map((item, key) => {
             return <StyledButton key={key} label={item} textColor="#909497"/>;
           })}
         </Grid>

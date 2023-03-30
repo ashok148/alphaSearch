@@ -28,6 +28,7 @@ export const adminSignup = async (admindata) => {
     return res;
   } catch (error) {
     console.log(error);
+    return error.response;
   }
 };
 

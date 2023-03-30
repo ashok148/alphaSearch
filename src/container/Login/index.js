@@ -16,7 +16,6 @@ import logoIcon from "../../assets/logoIcon.png";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../redux/slices/auth/authSlice";
 import { loginUser } from "../../api/authApi";
-
 export const StyledTypography = styled(Typography)(({ theme }) => ({
   color: "#316ded",
   justifyContent: "center",
@@ -72,9 +71,9 @@ const Login = () => {
       if (res.status === 200) {
         setData(res?.data);
         setOpen(true);
-        dispatch(login(res?.data?.access_token));
+        dispatch(login(res?.data));
         if (res?.data?.role === 1) {
-          navigate("/admin/dashboard");
+          navigate("/admin/send-invite");
         } else navigate("/lists/companies");
       } else navigate("/");
     }
@@ -95,7 +94,7 @@ const Login = () => {
       </StyledTypography>
       <Container maxWidth="xs">
         <form onSubmit={handleSubmit} style={{ marginTop: "100px" }}>
-          {LoginFormData.map((item, i) => {
+          {LoginFormData?.map((item, i) => {
             const { name, type, placeholder } = item;
             const value = inputs?.[name];
             return (
@@ -128,7 +127,7 @@ const Login = () => {
             <ArrowForwardIcon />
           </Button>
           <div>
-            <Link href="#" underline="none" sx={{ fontSize: "14px" }}>
+            <Link href="/password/forgot" underline="none" sx={{ fontSize: "14px" }}>
               Forgot Password?
             </Link>
           </div>

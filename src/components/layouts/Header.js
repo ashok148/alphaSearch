@@ -10,7 +10,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
-import { Tab, Tabs } from "@mui/material";
 import ListItem from "../ListItem";
 import logoIcon from "../../assets/logoIcon.png";
 import { useNavigate } from "react-router-dom";
@@ -60,32 +59,36 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   }
 }));
 
-const TabWraper = styled(Tabs)(({ theme }) => ({
-  // "&.css-1h9z7r5-MuiButtonBase-root-MuiTab-root": {
-  //   color: "#000000 !important",
-  fontWeight: 600,
-  //   textTransform: "unset",
-  // },
-}));
-
 export default function Header({ search, setSearch }) {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
-  const [value, setValue] = useState(0);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const handleLogout = async () => {
+    const res = await logoutUser();
+    if (res) {
+      if (res.status === 200) {
+        dispatch(logout());
+        navigate("/");
+      }
+    }
+  };
   const handleMenuClose = () => {
-    logoutUser().then(() => dispatch(logout()));
     setAnchorEl(null);
-    navigate("/");
   };
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleAccount = () => {
+    setAnchorEl(null);
+    navigate("/account");
   };
+  const handleChangePassword = () => {
+    setAnchorEl(null);
+    navigate("/change-password");
+  };
+
   const handleSearch = (event) => {
     setSearch(event.target.value);
   };
@@ -104,8 +107,9 @@ export default function Header({ search, setSearch }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Account</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Log Off</MenuItem>
+      <MenuItem onClick={handleAccount}>Account</MenuItem>
+      <MenuItem onClick={handleChangePassword}>Change Password</MenuItem>
+      <MenuItem onClick={handleLogout}>Log Out</MenuItem>
     </Menu>
   );
 
@@ -119,7 +123,12 @@ export default function Header({ search, setSearch }) {
           }}>
           <Box sx={{ display: "flex" }}>
             <StyledTypography variant="h5">
-              <img src={logoIcon} alt="icon" width="30px" height="30px" />  Alpha Search
+              <img src={logoIcon}
+                alt="icon"
+                width="30px"
+                height="30px"
+              />
+              Alpha Search
             </StyledTypography>
             <Search>
               <SearchIconWrapper>
@@ -133,14 +142,11 @@ export default function Header({ search, setSearch }) {
               />
             </Search>
           </Box>
-          <Box sx={{ display: "flex", alignItems: 'center' }}>
-            <TabWraper
-              value={value}
-              onChange={handleChange}
-            >
-              <Tab label="Search" />
-              <Tab label="Lists" />
-            </TabWraper>
+          <Box sx={{
+            display: "flex",
+            alignItems: 'center'
+          }}
+          >
             <ListItem />
             <IconButton size="large" onClick={handleProfileMenuOpen}>
               <PersonPinIcon />
