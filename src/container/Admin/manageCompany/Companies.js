@@ -24,7 +24,7 @@ export default function CompanyData() {
   const [loading, setLoading] = useState(false);
   const [companyId, setCompanyId] = useState();
   const [totalRows, setTotalRows] = useState(0);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [companyData, setCompanyData] = useState({
     "Company_ID": "",
@@ -71,15 +71,12 @@ export default function CompanyData() {
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handlePageChange = (event, newPage) => {
-    if (newPage >= 1 && newPage < totalRows) {
-      setPage(newPage);
-    }
+    setPage(newPage);
   };
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(1);
+    setRowsPerPage(+event.target.value);
+    setPage(0);
   };
   useEffect(() => {
     setLoading(true);
@@ -173,7 +170,7 @@ export default function CompanyData() {
           <Typography color="text.primary">Companies</Typography>
           <Typography color="text.primary">Data</Typography>
         </BreadcrumbsWrapper>
-        <div style={{ height: 400, width: "100%" }}>
+        <div style={{ height: 900, width: "100%" }}>
           <DataGrid
             getRowId={(row) => row.Company_ID}
             rows={companyDetail}

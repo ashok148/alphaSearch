@@ -21,12 +21,10 @@ const CompanyList = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handlePageChange = (event, newPage) => {
-    if (newPage >= 1 && newPage < totalRows) {
       setPage(newPage);
-    }
   };
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(+event.target.value);
     setPage(0);
   };
   const Companies = detail?.map((item) => {
@@ -68,12 +66,13 @@ const CompanyList = () => {
   };
 
   return (
-    <MainLayout search={searchQuery} setSearch={setSearchQuery}>
+    <MainLayout search={searchQuery} setSearch={setSearchQuery} setPage={setPage}>
       <LoadingBackdrop open={loading} />
       <Wrapper>
         <FilterSection
           handleFilterChange={handleFilterChange}
           page={page}
+          setPage={setPage}
           rowsPerPage={rowsPerPage}
           query={searchQuery}
           setLoading={setLoading}

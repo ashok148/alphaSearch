@@ -51,7 +51,6 @@ export default function UserModal({
       }
     }
   };
-console.log(">>>>",formData);
   React.useEffect(() => {
     const handleApi = async () => {
       const token = localStorage.getItem("authToken");
@@ -141,7 +140,7 @@ console.log(">>>>",formData);
                 onChange={handleChange}
               />
               <Grid>
-                <div>Select Role :</div>
+                <div>Change Role :</div>
                 <Select
                   value={formData?.role}
                   defaultValue={formData?.role?.role_name}

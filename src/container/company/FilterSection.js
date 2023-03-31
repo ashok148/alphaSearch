@@ -100,6 +100,7 @@ const ListItem = styled("span")(({ theme }) => ({
 export default function FilterSection({
   handleFilterChange,
   page,
+  setPage,
   rowsPerPage,
   query,
   setLoading,
@@ -120,6 +121,8 @@ export default function FilterSection({
   const [includeTerm, setIncludeTerm] = useState([]);
   const [excludeTerm, setExcludeTerm] = useState([]);
   const [clear, setClear] = useState(false);
+  const [revenueRange, setRevenueRange] = useState([0, 5000000]);
+  const [employeeRange, setEmployeeRange] = useState([0, 100000]);
 
   const locationData =
     locationList && locationList?.map((location) => location?.key);
@@ -161,6 +164,7 @@ export default function FilterSection({
         )
       );
     }
+    setPage(0);
   };
 
   const handleExcludeCkecked = async (item) => {
@@ -172,6 +176,7 @@ export default function FilterSection({
         selectedExcludeIndustry.filter((selectedItem) => selectedItem !== item)
       );
     }
+    setPage(0);
   };
 
   const handleExcludeIndustry = async (event) => {
@@ -197,6 +202,7 @@ export default function FilterSection({
   }, []);
   const handleSelectLocation = (event, newValue) => {
     setLocation(newValue);
+    setPage(0);
   };
   const handleRevenue = (event, newValue) => {
     setRevenue(newValue);
@@ -250,8 +256,8 @@ export default function FilterSection({
       location,
       includeTerm,
       excludeTerm,
-      revenue,
-      employee,
+      revenueRange,
+      employeeRange,
       selectedIncludeIndustry,
       selectedExcludeIndustry,
       query
@@ -261,14 +267,21 @@ export default function FilterSection({
     location,
     includeTerm,
     excludeTerm,
-    revenue,
-    employee,
+    revenueRange,
+    employeeRange,
     selectedIncludeIndustry,
     selectedExcludeIndustry,
     query,
     page,
     rowsPerPage,
   ]);
+  
+  function handleRevenueRange() {
+    setRevenueRange(revenue)
+  }
+  function handleEmployeeRange() {
+    setEmployeeRange(employee)
+  }
   return (
     <PaperWraper elevation={3}>
       <List
@@ -287,9 +300,9 @@ export default function FilterSection({
             </AccordionSummary>
             <AccordionDetails>
               <p>Include these terms</p>
-              <MultiTermSearch value={includeTerm} setValue={setIncludeTerm} />
+              <MultiTermSearch value={includeTerm} setValue={setIncludeTerm} setPage={setPage}/>
               <p>Exclude these terms</p>
-              <MultiTermSearch value={excludeTerm} setValue={setExcludeTerm} />
+              <MultiTermSearch value={excludeTerm} setValue={setExcludeTerm} setPage={setPage}/>
             </AccordionDetails>
           </Accordion>
           <Accordion>
@@ -459,6 +472,7 @@ export default function FilterSection({
                   onChange={handleRevenue}
                   valueLabelDisplay="auto"
                   valueLabelFormat={valuetext}
+                  onMouseLeave={handleRevenueRange}
                 />
               </Box>
               <p>Employee</p>
@@ -476,6 +490,7 @@ export default function FilterSection({
                   onChange={handleEmployee}
                   valueLabelDisplay="auto"
                   valueLabelFormat={valueLableFormat}
+                  onMouseLeave={handleEmployeeRange}
                 />
               </Box>
             </AccordionDetails>

@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import StyledButton from "./StyledButton";
 import { Grid } from "@mui/material";
 
-export default function DeletePopover({ anchorEl, setAnchorEl,handleDelete }) {
+export default function DeletePopover({ anchorEl, setAnchorEl, handleDelete }) {
   const handleClose = () => {
     setAnchorEl(false);
   };
@@ -20,8 +20,8 @@ export default function DeletePopover({ anchorEl, setAnchorEl,handleDelete }) {
         // anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "center",
-          horizontal: "center",
+          vertical: "top",
+          horizontal: "right",
         }}
       >
         <Typography sx={{ p: 2 }}>

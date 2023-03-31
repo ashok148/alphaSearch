@@ -24,12 +24,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MultiTermSearch = ({value,setValue}) => {
+const MultiTermSearch = ({value,setValue,setPage}) => {
   const classes = useStyles();
   const [include, setInclude] = useState("");
 
   const handleInputChange = (event, newInputValue) => {
     setInclude(newInputValue);
+    setPage(0);
   };
 
 
@@ -42,6 +43,7 @@ const MultiTermSearch = ({value,setValue}) => {
 
   const handleDelete = (chipToDelete) => () => {
     setValue((chips) => chips?.filter((chip) => chip !== chipToDelete));
+    setPage(0);
   };
 
   return (

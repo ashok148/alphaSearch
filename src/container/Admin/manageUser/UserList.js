@@ -23,7 +23,7 @@ export default function UserData() {
   const [anchorEl, setAnchorEl] = useState(false);
   const [loading, setLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [userId, setUserId] = useState();
   const [formData, setFormData] = useState({
@@ -32,22 +32,17 @@ export default function UserData() {
     email: "",
     company: "",
     role: ""
-    // role: {
-    //   role_name: "",
-    //   role_id: ""
-    // }
   });
   const handlePageChange = (event, newPage) => {
-    if (newPage >= 1 && newPage < totalRows) {
       setPage(newPage);
-    }
   };
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(1);
+    setRowsPerPage(+event.target.value);
+    setPage(0);
   };
   const handleClick = (params) => {
-    setUserId(params);
+    console.log("paramssss", params);
+    setUserId(params?.row?.email);
     setAnchorEl(true);
   };
 
@@ -165,7 +160,7 @@ export default function UserData() {
           <Typography color="text.primary">User</Typography>
           <Typography color="text.primary">Data</Typography>
         </BreadcrumbsWrapper>
-        <div style={{ height: 400, width: "100%" }}>
+        <div style={{ height: 900, width: "100%" }}>
           <DataGrid
             getRowId={(row) => row._id}
             rows={userDetail}

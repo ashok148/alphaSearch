@@ -59,7 +59,7 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   }
 }));
 
-export default function Header({ search, setSearch }) {
+export default function Header({ search, setSearch,setPage }) {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -91,6 +91,7 @@ export default function Header({ search, setSearch }) {
 
   const handleSearch = (event) => {
     setSearch(event.target.value);
+    setPage(0);
   };
   const renderMenu = (
     <Menu

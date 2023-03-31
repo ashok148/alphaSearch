@@ -1,4 +1,4 @@
-import { Checkbox, Grid, Link, Typography } from "@mui/material";
+import { Checkbox, Chip, Grid, Link, Typography } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import React, { useState } from "react";
 import styled from "@emotion/styled";
@@ -19,9 +19,10 @@ const Card = styled(Grid)(({ theme }) => ({
 }));
 const GridWraper = styled(Grid)(({ theme }) => ({
   display: "flex",
-  gap: '50px',
+  gap: "50px",
   alignItems: "center",
-  fontWeight: 700 
+  justifyContent:'space-between',
+  fontWeight: 700,
 }));
 const ListCard = ({ company }) => {
   const [open, setOpen] = useState(false);
@@ -33,27 +34,34 @@ const ListCard = ({ company }) => {
 
   return (
     <Card>
-      <CompanyModal
-        open={open}
-        setOpen={setOpen}
-        companyDetail={company}
-      />
+      <CompanyModal open={open} setOpen={setOpen} companyDetail={company} />
       <Checkbox
         sx={{ height: "40px" }}
         checked={checked}
         onChange={handleChange}
         inputProps={{ "aria-label": "controlled" }}
       />
-      <Grid onClick={() => setOpen(true)}>
+      <Grid sx={{width:'100%'}} onClick={() => setOpen(true)}>
         <GridWraper>
-          <Typography variant="h6"
-           sx={{ color: "#0b568f",
-            fontWeight: 700 }}
-            >
+          <Typography variant="h6" sx={{ color: "#0b568f", fontWeight: 700 }}>
             {company?.Company_Name}
           </Typography>
-            <span>{company?.Employees}</span>
-            <span>{company?.Country}</span>       
+          <Grid>
+          <Chip label={`Employees ${company?.Employees}`} />
+          <span>
+            <span
+              style={{
+                fontWeight: "400",
+                fontSize: "13px",
+                  marginRight: "5px",
+                  marginLeft:'20px'
+              }}
+            >
+              Country
+            </span>
+            <Chip label={company?.Country} />
+          </span>
+          </Grid>
         </GridWraper>
         <Link
           href={company?.Company_url}
@@ -66,7 +74,7 @@ const ListCard = ({ company }) => {
             cursor: "pointer",
           }}
         >
-          {company?.Website} 
+          {company?.Website}
           <OpenInNewIcon fontSize="3px" />
         </Link>
         <p
@@ -82,7 +90,7 @@ const ListCard = ({ company }) => {
         </p>
       </Grid>
     </Card>
-  )
-}
+  );
+};
 
 export default ListCard;
