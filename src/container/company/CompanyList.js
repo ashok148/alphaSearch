@@ -82,7 +82,7 @@ const CompanyList = () => {
           query={searchQuery}
           setLoading={setLoading}
         />
-        {loading ? (
+        {loading || totalRows === 0 ? (
           <Grid sx={{ ml: "340px" }}>
             <img src={emptyData} alt="empty" width="100%" />
           </Grid>

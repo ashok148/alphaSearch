@@ -15,6 +15,7 @@ export const elasticSearchApi = async (
   page,
   rowsPerPage
 ) => {
+  console.log("includeIndustry",includeIndustry.join(","));
   try {
     if (token) {
       const res = await axios.get(
