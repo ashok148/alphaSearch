@@ -154,8 +154,18 @@ export default function UserData() {
     <MainLayout>
       <Box sx={{ ml: 11, mr: 4, mt: 9, mb: 2 }} >
         <LoadingBackdrop open={loading} />
-        <UserModal open={open} setOpen={setOpen} userId={userId} formData={formData} setFormData={setFormData} />
-        <DeletePopover anchorEl={anchorEl} setAnchorEl={setAnchorEl} handleDelete={handleDelete} />
+        <UserModal
+          open={open}
+          setOpen={setOpen}
+          userId={userId}
+          formData={formData}
+          setFormData={setFormData}   
+          />
+        <DeletePopover
+          anchorEl={anchorEl}
+          setAnchorEl={setAnchorEl}
+          handleDelete={handleDelete} 
+          />
         <BreadcrumbsWrapper>
           <Typography color="text.primary">User</Typography>
           <Typography color="text.primary">Data</Typography>

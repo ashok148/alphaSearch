@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
+import StyledButton from "../../../components/StyledButton";
+import { sendMail } from "../../../api/adminApi";
+import MainLayout from "../../../components/layouts/MainLayout";
 import {
   Paper,
   TextField,
@@ -8,9 +11,6 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import StyledButton from "../../../components/StyledButton";
-import { sendMail } from "../../../api/adminApi";
-import MainLayout from "../../../components/layouts/MainLayout";
 
 export const DashboardPaper = styled(Paper)`
   width: 70%;
@@ -61,7 +61,8 @@ const SendInvite = () => {
     <MainLayout>
       <DashboardPaper>
         <FormContainer maxWidth="xs">
-          <Typography variant="h4" fontWeight={500}>Send Invite to User</Typography>
+          <Typography variant="h4" fontWeight={500}
+          >Send Invite to User</Typography>
           <form onSubmit={handleSendInvite}>
             <TextField
               sx={{ mb: 8, mt: 8 }}
@@ -85,7 +86,9 @@ const SendInvite = () => {
         </FormContainer>
       </DashboardPaper>
       {show && (
-        <Snackbar open={show} autoHideDuration={4000} onClose={handleClose}>
+        <Snackbar open={show}
+          autoHideDuration={4000}
+          onClose={handleClose}>
           <Alert severity="success">Invite sent.</Alert>
         </Snackbar>
       )}

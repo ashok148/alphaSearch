@@ -89,11 +89,18 @@ const Login = () => {
   return (
     <>
       <StyledTypography variant="h4">
-        <img src={logoIcon} alt="logoIcon" width="40px" height="40px" />
+        <img
+          src={logoIcon}
+          alt="logoIcon"
+          width="40px"
+          height="40px"
+        />
         Alpha Search
       </StyledTypography>
       <Container maxWidth="xs">
-        <form onSubmit={handleSubmit} style={{ marginTop: "100px" }}>
+        <form onSubmit={handleSubmit}
+          style={{ marginTop: "100px" }}
+        >
           {LoginFormData?.map((item, i) => {
             const { name, type, placeholder } = item;
             const value = inputs?.[name];
@@ -127,12 +134,19 @@ const Login = () => {
             <ArrowForwardIcon />
           </Button>
           <div>
-            <Link href="/password/forgot" underline="none" sx={{ fontSize: "14px" }}>
+            <Link href="/password/forgot"
+              underline="none"
+              sx={{ fontSize: "14px" }}
+            >
               Forgot Password?
             </Link>
           </div>
         </form>
-        <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Snackbar
+          open={open}
+          autoHideDuration={4000}
+          onClose={handleClose}
+        >
           {data?.message === "user logged in succesfully" ? (
             <Alert severity="success">Login successful</Alert>
           ) : data?.message === "user does not exists" ? (

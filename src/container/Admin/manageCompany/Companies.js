@@ -94,7 +94,8 @@ export default function CompanyData() {
       }
     };
     handleApi();
-  }, [page, rowsPerPage,anchorEl, open]);
+  }, [page, rowsPerPage, anchorEl, open]);
+  
   const columns = [
     {
       field: "Company_ID",
@@ -150,7 +151,12 @@ export default function CompanyData() {
 
   return (
     <MainLayout>
-      <Box sx={{ ml: 11, mr: 4, mt: 9, mb: 2 }} >
+      <Box sx={{
+        ml: 11,
+        mr: 4,
+        mt: 9,
+        mb: 2
+      }} >
         <LoadingBackdrop open={loading} />
         <CompanyModal
           open={open}

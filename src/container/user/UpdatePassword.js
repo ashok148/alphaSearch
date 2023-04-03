@@ -74,7 +74,9 @@ export default function UpdatePasswordPage() {
         >
           Update Password
         </Typography>
-        <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
+        <form onSubmit={handleSubmit}
+          style={{ marginTop: "20px" }}
+        >
           <StyledGrid>
             <TextField
               variant="standard"
@@ -116,7 +118,11 @@ export default function UpdatePasswordPage() {
             </div>
           </StyledGrid>
           <Grid
-            sx={{ display: "flex", justifyContent: "center", mt: 17, gap: 4 }}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              mt: 17, gap: 4
+            }}
           >
             <StyledButton
               textColor="#fff"

@@ -1,11 +1,10 @@
 import axios from "axios";
-import { BASE_URL } from "../constant/constant";
 
 export const sendMail = async (email) => {
   try {
     const config = { headers: { "Content-Type": "application/json" } };
     const res = await axios.post(
-      `${BASE_URL}/admin/send_mail/`,
+      `${process.env.REACT_APP_BASE_URL}/admin/send_mail/`,
       {
         email: email,
       },
@@ -21,7 +20,7 @@ export const adminSignup = async (admindata) => {
   try {
     const config = { headers: { "Content-Type": "application/json" } };
     const res = await axios.post(
-      `${BASE_URL}/admin/signup_admin/`,
+      `${process.env.REACT_APP_BASE_URL}/admin/signup_admin/`,
       admindata,
       config
     );
@@ -34,7 +33,7 @@ export const adminSignup = async (admindata) => {
 
 export const validateToken = async (token) => {
   try {
-    const res = await axios.get(`${BASE_URL}/admin/validate_token/`, {
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/validate_token/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

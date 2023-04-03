@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import StyledButton from "../../../components/StyledButton";
+import { adminSignup } from "../../../api/adminApi";
+import { ErrorMessage } from "../../SignupPage";
+import MainLayout from "../../../components/layouts/MainLayout";
+import styled from "@emotion/styled";
+import { DashboardPaper } from "../invite/SendInvite";
+
 import {
   TextField,
   Typography,
@@ -17,11 +23,6 @@ import {
   validatelast,
   validatePassword,
 } from "../../../helper/validation";
-import { adminSignup } from "../../../api/adminApi";
-import { ErrorMessage } from "../../SignupPage";
-import MainLayout from "../../../components/layouts/MainLayout";
-import styled from "@emotion/styled";
-import { DashboardPaper } from "../invite/SendInvite";
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   marginBottom: "30px",
@@ -99,7 +100,7 @@ const CreateAdmin = () => {
           confirmPassword: "",
           companyname: "",
         });
-        setOpen(true);      
+        setOpen(true);
       }
     }
   };
@@ -111,7 +112,12 @@ const CreateAdmin = () => {
   };
   return (
     <MainLayout>
-      <Box sx={{ ml: 11, mr: 4, mt: 14, mb: 2 }}>
+      <Box sx={{
+        ml: 11,
+        mr: 4,
+        mt: 14,
+        mb: 2
+      }}>
         <DashboardPaper>
           <Typography
             variant="h4"
@@ -123,7 +129,9 @@ const CreateAdmin = () => {
             Create Admin
           </Typography>
           <Container maxWidth="sm">
-            <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
+            <form onSubmit={handleSubmit}
+              style={{ marginTop: "20px" }}
+            >
               <Grid
                 sx={{
                   display: "flex",
@@ -224,9 +232,15 @@ const CreateAdmin = () => {
               />
             </form>
           </Container>
-          <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-            {data?.message === "user created succesfully and mail send successfully" ? (
-              <Alert severity="success">Admin account created successfully</Alert>
+          <Snackbar open={open}
+            autoHideDuration={4000}
+            onClose={handleClose}
+          >
+            {data?.message ===
+            "user created succesfully and mail send successfully" ? (
+              <Alert severity="success">
+                Admin account created successfully
+              </Alert>
             ) : (
               <Alert severity="error">
                 This email already registered! please login

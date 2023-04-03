@@ -2,10 +2,16 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Container, Grid, MenuItem, Select, TextField } from "@mui/material";
 import StyledButton from "./StyledButton";
 import { updateUserDetail } from "../api/userApi";
 import { getRoles } from "../api/roleApi";
+import {
+  Container,
+  Grid,
+  MenuItem,
+  Select,
+  TextField
+} from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -84,7 +90,9 @@ export default function UserModal({
             Update User Detail
           </Typography>
           <Container>
-            <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
+            <form onSubmit={handleSubmit}
+              style={{ marginTop: "20px" }}
+            >
               <Grid
                 sx={{
                   display: "flex",
@@ -148,12 +156,18 @@ export default function UserModal({
                   onChange={handleChange}
                 >
                   {roles.map((role) => (
-                    <MenuItem value={role?.role_id}>{role?.role_name}</MenuItem>
+                    <MenuItem value={role?.role_id}>
+                      {role?.role_name}
+                    </MenuItem>
                   ))}
                 </Select>
               </Grid>
               <Grid
-                sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  mt: 2
+                }}
               >
                 <StyledButton
                   textColor="#fff"

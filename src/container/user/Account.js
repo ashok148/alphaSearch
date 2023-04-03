@@ -68,10 +68,16 @@ export default function AccountPage() {
         <Typography color="text.primary">Profile</Typography>
       </BreadcrumbsWrapper>
         <Container maxWidth="xs">
-          <Typography sx={{ textAlign: 'center', mb: 4 }} variant="h6" component="h2">
+        <Typography
+          sx={{
+            textAlign: 'center',
+            mb: 4
+          }} variant="h6" component="h2">
             Update User Profile
           </Typography>
-          <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
+        <form onSubmit={handleSubmit}
+          style={{ marginTop: "20px" }}
+        >
             <StyledGrid>
               <TextField
                 required

@@ -41,8 +41,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create("width"),
     maxWidth: "100%",
     width: "450px",
-    [theme.breakpoints.down('lg')]: {
-      width: '26ch',
+    [theme.breakpoints.down("lg")]: {
+      width: "26ch",
     },
   },
 }));
@@ -50,17 +50,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const StyledTypography = styled(Typography)(({ theme }) => ({
   color: "#316ded",
   fontWeight: 700,
-  display: 'flex',
-  alignItems: 'center',
+  display: "flex",
+  alignItems: "center",
   gap: "6px",
-  marginRight: '20px',
-  [theme.breakpoints.down('md')]: {
-    display: 'none'
-  }
+  marginRight: "20px",
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
 }));
 
-export default function Header({ search, setSearch,setPage }) {
-  const dispatch = useDispatch()
+export default function Header({ search, setSearch, setPage }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [inputValue, setInputValue] = useState("");
@@ -95,7 +95,7 @@ export default function Header({ search, setSearch,setPage }) {
     setPage(0);
   };
   function handleKeyDown(event) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       setSearch(inputValue);
       setInputValue("");
     }
@@ -127,15 +127,12 @@ export default function Header({ search, setSearch,setPage }) {
         <Toolbar
           sx={{
             display: "flex",
-            justifyContent: "space-between"
-          }}>
+            justifyContent: "space-between",
+          }}
+        >
           <Box sx={{ display: "flex" }}>
             <StyledTypography variant="h5">
-              <img src={logoIcon}
-                alt="icon"
-                width="30px"
-                height="30px"
-              />
+              <img src={logoIcon} alt="icon" width="30px" height="30px" />
               Alpha Search
             </StyledTypography>
             <Search>
@@ -151,10 +148,11 @@ export default function Header({ search, setSearch,setPage }) {
               />
             </Search>
           </Box>
-          <Box sx={{
-            display: "flex",
-            alignItems: 'center'
-          }}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
           >
             <ListItem />
             <IconButton size="large" onClick={handleProfileMenuOpen}>

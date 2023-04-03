@@ -70,7 +70,11 @@ export const ForgotPassword = () => {
             type="submit"
           />
         </form>
-        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+        >
           {data?.msg === "Email is not register Please register" ? (
             <Alert severity="error">Unregistered email!</Alert>
           ) : (

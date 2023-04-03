@@ -133,7 +133,9 @@ const ResetPassword = () => {
         <div>
           <StyledTypography variant="h4">Reset Password</StyledTypography>
           <Container maxWidth="xs">
-            <form onSubmit={handleSubmit} style={{ marginTop: "80px" }}>
+            <form onSubmit={handleSubmit}
+              style={{ marginTop: "80px" }}
+            >
               {LoginFormData?.map((item, i) => {
                 const { name, type, placeholder } = item;
                 const value = inputs?.[name];

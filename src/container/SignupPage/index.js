@@ -119,7 +119,11 @@ const Signup = ({emailId}) => {
   return (
     <>
       <StyledTypography variant="h4">
-        <img src={logoIcon} alt="logoIcon" width="40px" height="40px" />
+        <img
+          src={logoIcon}
+          alt="logoIcon"
+          width="40px" height="40px"  
+          />
         Alpha Search
       </StyledTypography>
       <Container maxWidth="xs">
@@ -134,7 +138,9 @@ const Signup = ({emailId}) => {
           >
             Create Account
           </Typography>
-          <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
+          <form onSubmit={handleSubmit}
+            style={{ marginTop: "20px" }}
+          >
             <Grid
               sx={{
                 display: "flex",
@@ -240,7 +246,10 @@ const Signup = ({emailId}) => {
             </p>
           </form>
         </BoxWraper>
-        <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Snackbar open={open}
+          autoHideDuration={4000}
+          onClose={handleClose}
+        >
           {data?.message === "user created succesfully" ? (
             <Alert severity="success">Account create successful</Alert>
           ) : (

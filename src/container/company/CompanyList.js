@@ -39,7 +39,6 @@ const CompanyList = () => {
     employee,
     includeIndustry,
     excludeIndustry
-    // query
   ) => {
     const token = localStorage.getItem("authToken");
     const res = await elasticSearchApi(
@@ -51,7 +50,6 @@ const CompanyList = () => {
       employee,
       includeIndustry,
       excludeIndustry,
-      // query,
       page,
       rowsPerPage
     );
@@ -84,15 +82,26 @@ const CompanyList = () => {
         />
         {loading || totalRows === 0 ? (
           <Grid sx={{ ml: "340px" }}>
-            <img src={emptyData} alt="empty" width="100%" />
+            <img
+              src={emptyData}
+              alt="empty"
+              width="100%"   
+            />
           </Grid>
         ) : (
           <Grid sx={{ ml: "340px" }}>
             {Companies?.map((company, key) => (
-              <ListCard key={key} loading={loading} company={company} />
+              <ListCard
+                key={key}
+                loading={loading}
+                company={company}
+              />
             ))}
             <TablePagination
-              sx={{ display: "flex", justifyContent: "center" }}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center"
+                }}
               component=""
               rowsPerPageOptions={[5, 10, 25, 50, 100]}
               count={totalRows}

@@ -267,7 +267,6 @@ export default function FilterSection({
       employeeRange,
       selectedIncludeIndustry,
       selectedExcludeIndustry
-      // query
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -278,7 +277,6 @@ export default function FilterSection({
     employeeRange,
     selectedIncludeIndustry,
     selectedExcludeIndustry,
-    // query,
     page,
     rowsPerPage,
   ]);

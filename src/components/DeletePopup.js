@@ -27,14 +27,23 @@ export default function DeletePopover({ anchorEl, setAnchorEl, handleDelete }) {
         <Typography sx={{ p: 2 }}>
           Are you sure !.You want to delete.
         </Typography>
-        <Grid sx={{ display: "flex", justifyContent: "space-evenly", mb: 2 }}>
+        <Grid
+          sx={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            mb: 2,
+          }}
+        >
           <StyledButton
             label="Yes"
             backgroundColor="red"
             textColor="#fff"
             handleClick={handleDelete}
           />
-          <StyledButton label="No" textColor="#000" handleClick={handleClose} />
+          <StyledButton label="No"
+            textColor="#000"
+            handleClick={handleClose} 
+          />
         </Grid>
       </Popover>
     </div>

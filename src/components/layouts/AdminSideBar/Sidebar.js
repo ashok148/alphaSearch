@@ -105,14 +105,26 @@ export default function AdminSideBar() {
     setOpen(true);
   };
   const menuItems = [
-    { label: "Send Invite", key: "/admin/send-invite", Icon: <SendIcon /> },
-    { label: "Create Admin", key: "/admin/create-admin", Icon: <AddBoxIcon /> },
+    {
+      label: "Send Invite",
+      key: "/admin/send-invite",
+      Icon: <SendIcon />,
+    },
+    {
+      label: "Create Admin",
+      key: "/admin/create-admin",
+      Icon: <AddBoxIcon />,
+    },
     {
       label: "Manage Company",
       key: "/admin/companies/data",
       Icon: <ApartmentIcon />,
     },
-    { label: "Manage User", key: "/admin/user/data", Icon: <PeopleIcon /> },
+    {
+      label: "Manage User",
+      key: "/admin/user/data",
+      Icon: <PeopleIcon />,
+    },
   ];
   const handleDrawerClose = () => {
     setOpen(false);
@@ -164,7 +176,7 @@ export default function AdminSideBar() {
     </Menu>
   );
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex"}}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>

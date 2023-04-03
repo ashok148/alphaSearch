@@ -45,7 +45,7 @@ function a11yProps(index) {
   };
 }
 
-export default function ModalSection({companyDetail}) {
+export default function ModalSection({ companyDetail }) {
   const [value, setValue] = useState(0);
   const [isReadMore, setIsReadMore] = useState(true);
 
@@ -193,7 +193,7 @@ export default function ModalSection({companyDetail}) {
               </BoxWraper>
               <BoxWraper>
                 <p>Education</p>
-                <p style={{width: '421px'}}>
+                <p style={{ width: "421px" }}>
                   University of Illinois at Urbana-Champaign 1978-1982Bachelor
                   of Applied Science (B.A.Sc.), Civil Engineering, Undergraduate
                 </p>

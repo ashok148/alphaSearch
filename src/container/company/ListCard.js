@@ -34,16 +34,27 @@ const ListCard = ({ company }) => {
 
   return (
     <Card>
-      <CompanyModal open={open} setOpen={setOpen} companyDetail={company} />
+      <CompanyModal
+        open={open}
+        setOpen={setOpen}
+        companyDetail={company} 
+        />
       <Checkbox
         sx={{ height: "40px" }}
         checked={checked}
         onChange={handleChange}
         inputProps={{ "aria-label": "controlled" }}
       />
-      <Grid sx={{width:'100%'}} onClick={() => setOpen(true)}>
+      <Grid
+        sx={{ width: '100%' }}
+        onClick={() => setOpen(true)}
+      >
         <GridWraper>
-          <Typography variant="h6" sx={{ color: "#0b568f", fontWeight: 700 }}>
+          <Typography variant="h6"
+            sx={{
+              color: "#0b568f",
+              fontWeight: 700
+            }}>
             {company?.Company_Name}
           </Typography>
           <Grid>

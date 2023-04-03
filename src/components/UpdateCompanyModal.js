@@ -14,7 +14,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 900,
-  height: 'auto',
+  height: "auto",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -23,11 +23,18 @@ const style = {
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   display: "flex",
-  gap: '20px',
-  marginBottom: "40px"
+  gap: "20px",
+  marginBottom: "40px",
 }));
 
-export default function CompanyModal({ open, setOpen, companyId, companyData, setCompanyData,setLoading }) {
+export default function CompanyModal({
+  open,
+  setOpen,
+  companyId,
+  companyData,
+  setCompanyData,
+  setLoading,
+}) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCompanyData({ ...companyData, [name]: value });
@@ -36,27 +43,27 @@ export default function CompanyModal({ open, setOpen, companyId, companyData, se
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      "Company_ID": companyData?.Company_ID,
-      "Company_Name": companyData?.Company_Name,
-      "Headquarters": companyData?.Headquarters,
-      "Phone": companyData?.Phone,
-      "Website": companyData?.Website,
-      "Employees": companyData?.Employees,
-      "Stock_Symbol": companyData?.Stock_Symbol,
-      "Ticker": companyData?.Ticker,
-      "Revenue": companyData?.Revenue,
-      "Siccode": companyData?.Siccode,
-      "Naicscode": companyData?.Naicscode,
-      "Description": companyData?.Description,
-      "Industry": companyData?.Industry,
-      "Company_url": companyData?.Company_url,
-      "Company_Logo_URL": companyData?.Company_Logo_URL
+      Company_ID: companyData?.Company_ID,
+      Company_Name: companyData?.Company_Name,
+      Headquarters: companyData?.Headquarters,
+      Phone: companyData?.Phone,
+      Website: companyData?.Website,
+      Employees: companyData?.Employees,
+      Stock_Symbol: companyData?.Stock_Symbol,
+      Ticker: companyData?.Ticker,
+      Revenue: companyData?.Revenue,
+      Siccode: companyData?.Siccode,
+      Naicscode: companyData?.Naicscode,
+      Description: companyData?.Description,
+      Industry: companyData?.Industry,
+      Company_url: companyData?.Company_url,
+      Company_Logo_URL: companyData?.Company_Logo_URL,
     };
     const token = localStorage.getItem("authToken");
     const res = await updateCompanyDetail(token, companyId, data);
     if (res) {
       if (res.status === 400) {
-        alert("Something went wrong!")
+        alert("Something went wrong!");
       }
       if (res.status === 200) {
         setOpen(false);
@@ -78,11 +85,17 @@ export default function CompanyModal({ open, setOpen, companyId, companyData, se
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography sx={{ textAlign: 'center', mb: 4 }} variant="h6" component="h2">
+          <Typography
+            sx={{ textAlign: "center", mb: 4 }}
+            variant="h6"
+            component="h2"
+          >
             Update Company Details
           </Typography>
           <Container>
-            <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
+            <form onSubmit={handleSubmit}
+              style={{ marginTop: "20px" }}
+            >
               <StyledGrid>
                 <TextField
                   variant="standard"
@@ -202,7 +215,6 @@ export default function CompanyModal({ open, setOpen, companyId, companyData, se
               </StyledGrid>
               <StyledGrid>
                 <TextField
-
                   variant="standard"
                   fullWidth
                   type="text"
@@ -232,7 +244,14 @@ export default function CompanyModal({ open, setOpen, companyId, companyData, se
                 value={companyData.Description}
                 onChange={handleChange}
               />
-              <Grid sx={{ display: 'flex', justifyContent: 'center', mt: 3, gap: 5 }}>
+              <Grid
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mt: 3,
+                  gap: 5,
+                }}
+              >
                 <StyledButton
                   textColor="#fff"
                   backgroundColor="#00a3d0"
