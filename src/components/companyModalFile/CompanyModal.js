@@ -55,18 +55,30 @@ const CompanyModal = ({ open, setOpen, companyDetail }) => {
               variant="outlined"
               sx={{ padding: "10px 20px", borderRadius: 3 }}
             >
-              <img src={companyDetail?.Company_Logo_URL} height="50px" width="50px" alt="logo" />
+              <img
+                src={companyDetail?.Company_Logo_URL}
+                height="50px"
+                width="50px"
+                alt="logo"
+              />
             </Paper>
             <div>
               <Typography variant="h4" fontWeight={600}>
                 {companyDetail?.Company_Name}
               </Typography>
-              <Link href="#" color="#00a3d0" fontWeight={700}>
+              <Link
+                href={`http://${companyDetail?.Website}`}
+                color="#00a3d0"
+                fontWeight={700}
+              >
                 {companyDetail?.Website}
               </Link>
             </div>
           </Grid>
-          <Grid item xs={12} md={6}
+          <Grid
+            item
+            xs={12}
+            md={6}
             sx={{
               display: "flex",
               gap: 1,
@@ -91,7 +103,7 @@ const CompanyModal = ({ open, setOpen, companyDetail }) => {
             <ModalSideBar companyDetail={companyDetail} />
           </Grid>
           <Grid item xs={12} md={7}>
-            <ModalSection companyDetail={companyDetail}/>
+            <ModalSection companyDetail={companyDetail} />
           </Grid>
         </Grid>
       </BoxWraper>

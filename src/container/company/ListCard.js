@@ -64,7 +64,7 @@ const ListCard = ({ company }) => {
           </Grid>
         </GridWraper>
         <Link
-          href={company?.Company_url}
+          href={`http://${company?.Website}`}
           target="_blank"
           underline="none"
           sx={{

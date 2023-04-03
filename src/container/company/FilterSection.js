@@ -17,6 +17,7 @@ import {
   TextField,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DoneIcon from "@mui/icons-material/Done";
 import styled from "@emotion/styled";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -35,6 +36,12 @@ const PaperWraper = styled(Paper)(({ theme }) => ({
   bgcolor: "background.paper",
   position: "fixed",
   overflowY: "scroll",
+}));
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  fontWeight: 600,
+  alignItems: "center",
+  display: "flex",
+  gap: "8px",
 }));
 const GridWraper = styled("div")(({ theme }) => ({
   display: "flex",
@@ -237,7 +244,7 @@ export default function FilterSection({
     } catch (error) {
       console.log(error);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clear]);
 
   const excludeOperationModelData =
@@ -259,8 +266,8 @@ export default function FilterSection({
       revenueRange,
       employeeRange,
       selectedIncludeIndustry,
-      selectedExcludeIndustry,
-      query
+      selectedExcludeIndustry
+      // query
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -271,16 +278,16 @@ export default function FilterSection({
     employeeRange,
     selectedIncludeIndustry,
     selectedExcludeIndustry,
-    query,
+    // query,
     page,
     rowsPerPage,
   ]);
-  
+
   function handleRevenueRange() {
-    setRevenueRange(revenue)
+    setRevenueRange(revenue);
   }
   function handleEmployeeRange() {
-    setEmployeeRange(employee)
+    setEmployeeRange(employee);
   }
   return (
     <PaperWraper elevation={3}>
@@ -296,18 +303,38 @@ export default function FilterSection({
         <Box>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography fontWeight={600}>TERMS</Typography>
+              <StyledTypography>
+                TERMS{" "}
+                {includeTerm?.length || excludeTerm?.length ? (
+                  <DoneIcon sx={{color:'#2196f3'}}/>
+                ) : null}
+              </StyledTypography>
             </AccordionSummary>
             <AccordionDetails>
               <p>Include these terms</p>
-              <MultiTermSearch value={includeTerm} setValue={setIncludeTerm} setPage={setPage}/>
+              <MultiTermSearch
+                value={includeTerm}
+                setValue={setIncludeTerm}
+                setPage={setPage}
+                query={query}
+              />
               <p>Exclude these terms</p>
-              <MultiTermSearch value={excludeTerm} setValue={setExcludeTerm} setPage={setPage}/>
+              <MultiTermSearch
+                value={excludeTerm}
+                setValue={setExcludeTerm}
+                setPage={setPage}
+              />
             </AccordionDetails>
           </Accordion>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography fontWeight={600}>OPERATING MODEL</Typography>
+              <StyledTypography>
+                OPERATING MODEL{" "}
+                {selectedIncludeIndustry?.length ||
+                selectedExcludeIndustry?.length ? (
+                    <DoneIcon sx={{color:'#2196f3'}}/>
+                ) : null}
+              </StyledTypography>
             </AccordionSummary>
             <AccordionDetails>
               <span>Industry</span>
@@ -498,5 +525,5 @@ export default function FilterSection({
         </Box>
       </List>
     </PaperWraper>
-  )
+  );
 }

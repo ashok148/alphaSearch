@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Autocomplete, Chip, TextField } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MultiTermSearch = ({value,setValue,setPage}) => {
+const MultiTermSearch = ({value,setValue,setPage,query}) => {
   const classes = useStyles();
   const [include, setInclude] = useState("");
 
@@ -40,6 +40,12 @@ const MultiTermSearch = ({value,setValue,setPage}) => {
       setInclude("");
     }
   };
+  useEffect(() => {
+    if (query?.length) {
+      setValue([...value, query]);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query])
 
   const handleDelete = (chipToDelete) => () => {
     setValue((chips) => chips?.filter((chip) => chip !== chipToDelete));

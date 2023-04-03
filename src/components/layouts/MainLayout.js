@@ -6,7 +6,7 @@ const MainLayout = ({ children, search, setSearch, setPage }) => {
   const role = localStorage.getItem("role");
   return (
     <>
-      {role == 1 ? (
+      {role === "1" ? (
         <AdminSideBar />
       ) : (
           <Header

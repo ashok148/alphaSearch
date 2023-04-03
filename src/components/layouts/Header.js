@@ -63,6 +63,7 @@ export default function Header({ search, setSearch,setPage }) {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [inputValue, setInputValue] = useState("");
   const isMenuOpen = Boolean(anchorEl);
 
   const handleProfileMenuOpen = (event) => {
@@ -90,9 +91,15 @@ export default function Header({ search, setSearch,setPage }) {
   };
 
   const handleSearch = (event) => {
-    setSearch(event.target.value);
+    setInputValue(event.target.value);
     setPage(0);
   };
+  function handleKeyDown(event) {
+    if (event.key === 'Enter') {
+      setSearch(inputValue);
+      setInputValue("");
+    }
+  }
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -136,8 +143,9 @@ export default function Header({ search, setSearch,setPage }) {
                 <SearchIcon sx={{ color: "#00a3d0" }} />
               </SearchIconWrapper>
               <StyledInputBase
-                value={search}
+                value={inputValue}
                 onChange={handleSearch}
+                onKeyDown={handleKeyDown}
                 placeholder="Search a term, industry, or a specific company"
                 inputProps={{ "aria-label": "search" }}
               />

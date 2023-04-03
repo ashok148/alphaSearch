@@ -153,7 +153,7 @@ const Signup = ({emailId}) => {
                   value={formData.first_name}
                   onChange={handleChange}
                 />
-                {formData.first_name.length <= 3 ? (
+                {formData.first_name?.length <= 3 ? (
                   <ErrorMessage>{formErrors.firstname}</ErrorMessage>
                 ) : null}
               </div>
@@ -168,7 +168,7 @@ const Signup = ({emailId}) => {
                   value={formData.last_name}
                   onChange={handleChange}
                 />
-                {formData.last_name.length <= 3 ? (
+                {formData.last_name?.length <= 3 ? (
                   <ErrorMessage>{formErrors.lastname}</ErrorMessage>
                 ) : null}
               </div>

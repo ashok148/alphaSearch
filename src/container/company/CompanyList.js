@@ -5,6 +5,7 @@ import ListCard from "./ListCard";
 import FilterSection from "./FilterSection";
 import { elasticSearchApi } from "../../api/searchApi";
 import MainLayout from "../../components/layouts/MainLayout";
+import emptyData from "../../assets/emptyData.png";
 import LoadingBackdrop from "../../components/Loader/LoadingBackDrop";
 
 const Wrapper = styled(Grid)(({ theme }) => ({
@@ -21,7 +22,7 @@ const CompanyList = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handlePageChange = (event, newPage) => {
-      setPage(newPage);
+    setPage(newPage);
   };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
@@ -37,8 +38,8 @@ const CompanyList = () => {
     revenue,
     employee,
     includeIndustry,
-    excludeIndustry,
-    query
+    excludeIndustry
+    // query
   ) => {
     const token = localStorage.getItem("authToken");
     const res = await elasticSearchApi(
@@ -50,7 +51,7 @@ const CompanyList = () => {
       employee,
       includeIndustry,
       excludeIndustry,
-      query,
+      // query,
       page,
       rowsPerPage
     );
@@ -66,7 +67,11 @@ const CompanyList = () => {
   };
 
   return (
-    <MainLayout search={searchQuery} setSearch={setSearchQuery} setPage={setPage}>
+    <MainLayout
+      search={searchQuery}
+      setSearch={setSearchQuery}
+      setPage={setPage}
+    >
       <LoadingBackdrop open={loading} />
       <Wrapper>
         <FilterSection
@@ -77,21 +82,27 @@ const CompanyList = () => {
           query={searchQuery}
           setLoading={setLoading}
         />
-        <Grid sx={{ ml: "340px" }}>
-          {Companies?.map((company, key) => (
-            <ListCard key={key} loading={loading} company={company} />
-          ))}
-          <TablePagination
-            sx={{ display: "flex", justifyContent: "center" }}
-            component=""
-            rowsPerPageOptions={[5, 10, 25, 50, 100]}
-            count={totalRows}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handlePageChange}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Grid>
+        {loading ? (
+          <Grid sx={{ ml: "340px" }}>
+            <img src={emptyData} alt="empty" width="100%" />
+          </Grid>
+        ) : (
+          <Grid sx={{ ml: "340px" }}>
+            {Companies?.map((company, key) => (
+              <ListCard key={key} loading={loading} company={company} />
+            ))}
+            <TablePagination
+              sx={{ display: "flex", justifyContent: "center" }}
+              component=""
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              count={totalRows}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Grid>
+        )}
       </Wrapper>
     </MainLayout>
   );

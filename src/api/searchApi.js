@@ -11,7 +11,7 @@ export const elasticSearchApi = async (
   employee,
   includeIndustry,
   excludeIndustry,
-  searchQuery,
+  // searchQuery,
   page,
   rowsPerPage
 ) => {
@@ -21,14 +21,14 @@ export const elasticSearchApi = async (
         `${BASE_URL}/search/elastic/?Locations=${location.join(
           ","
         )}&Terms_include=${
-          searchQuery ? searchQuery : includeTerm.join(",")
+          includeTerm.join(",")
         }&Terms_exclude=${excludeTerm.join(",")}&Revenue_start=${
           revenue[0]
         }&Revenue_end=${revenue[1]}&Employees_start=${
           employee[0]
         }&Employees_end=${employee[1]}&Industry_include=${includeIndustry.join(
           ","
-        )}&Industry_exclude=${excludeIndustry.join(",")}&page_size=${rowsPerPage}&page_num=${page}`,
+        )}&Industry_exclude=${excludeIndustry.join(",")}&page_size=${rowsPerPage}&page_num=${page*rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -1,7 +1,7 @@
 export const validatefirst = (firstname) => {
   if (!firstname) {
     return "firstname is required";
-  } else if (typeof firstname !== "string" || firstname.length < 3) {
+  } else if (typeof firstname !== "string" || firstname?.length < 3) {
     return `First Name must be 3 characters`;
   } else return "";
 };
@@ -9,7 +9,7 @@ export const validatefirst = (firstname) => {
 export const validatelast = (lastname) => {
   if (!lastname) {
     return "lastname is required";
-  } else if (typeof lastname !== "string" || lastname.length < 3) {
+  } else if (typeof lastname !== "string" || lastname?.length < 3) {
     return `Last Name must be 3 characters`;
   } else return "";
 };
@@ -25,9 +25,9 @@ export const validateEmail = (email) => {
 export const validatePassword = (password) => {
   if (!password) {
     return "Password is required";
-  } else if (typeof password !== "string" || password.length < 6) {
+  } else if (typeof password !== "string" || password?.length < 6) {
     return `Passwords must be at least 6 characters long`;
-  } else if (password.length > 0) {
+  } else if (password?.length > 0) {
     let PASSWORD_REGEX =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!PASSWORD_REGEX.test(password)) {
