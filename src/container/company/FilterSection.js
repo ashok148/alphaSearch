@@ -489,8 +489,8 @@ export default function FilterSection({
               <p>Revenue</p>
               <SizeFilterBox>
                 <span>Min</span>
-                <InputBox defaultValue={"$0"} />-<span>Max</span>
-                <InputBox defaultValue={"$ 5 Million"} />
+                <InputBox disabled defaultValue={"$0"} />-<span>Max</span>
+                <InputBox disabled defaultValue={"$ 5 Million"} />
               </SizeFilterBox>
               <Box>
                 <Slider
@@ -507,8 +507,8 @@ export default function FilterSection({
               <p>Employee</p>
               <SizeFilterBox>
                 <span>Min</span>
-                <InputBox defaultValue={"0"} />-<span>Max</span>
-                <InputBox defaultValue={"100,000+"} />
+                <InputBox disabled defaultValue={"0"} />-<span>Max</span>
+                <InputBox disabled defaultValue={"100,000+"} />
               </SizeFilterBox>
               <Box>
                 <Slider
