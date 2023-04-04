@@ -7,6 +7,9 @@ import { elasticSearchApi } from "../../api/searchApi";
 import MainLayout from "../../components/layouts/MainLayout";
 import emptyData from "../../assets/emptyData.png";
 import LoadingBackdrop from "../../components/Loader/LoadingBackDrop";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../redux/slices/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 const Wrapper = styled(Grid)(({ theme }) => ({
   padding: "90px 20px 0px 20px",
@@ -14,6 +17,8 @@ const Wrapper = styled(Grid)(({ theme }) => ({
 }));
 
 const CompanyList = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [detail, setDetail] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -59,7 +64,8 @@ const CompanyList = () => {
         setTotalRows(res?.data?.hits?.total?.value);
         setLoading(false);
       } else {
-        setLoading(true);
+        dispatch(logout());
+        navigate('/');      
       }
     }
   };

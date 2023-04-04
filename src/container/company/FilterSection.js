@@ -27,6 +27,7 @@ import {
   operatingModelApi,
 } from "../../api/searchApi";
 import MultiTermSearch from "../../components/MultiTermSearch";
+import { useNavigate } from "react-router-dom";
 
 const PaperWraper = styled(Paper)(({ theme }) => ({
   width: "100%",
@@ -112,6 +113,7 @@ export default function FilterSection({
   query,
   setLoading,
 }) {
+  const navigate = useNavigate()
   const token = localStorage.getItem("authToken");
   const [revenue, setRevenue] = useState([0, 5000000]);
   const [employee, setEmployee] = useState([0, 100000]);
@@ -204,6 +206,7 @@ export default function FilterSection({
       });
     } catch (error) {
       console.log(error);
+      navigate('/')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -243,6 +246,7 @@ export default function FilterSection({
       });
     } catch (error) {
       console.log(error);
+      navigate('/')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clear]);
