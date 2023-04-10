@@ -134,17 +134,17 @@ export default function FilterSection({
   const [employeeRange, setEmployeeRange] = useState([0, 100000]);
 
   const locationData =
-    locationList && locationList?.map((location) => location?.key);
+  locationList?.length > 0 ? locationList?.map((location) => location?.key) : [];
 
   const operationModelData =
-    operationModel &&
+    operationModel?.length > 0 ?
     operationModel?.map((data) => {
       if (data?.key) {
         return data?.key;
       } else {
         return data?._source?.Industry;
       }
-    });
+    }):[];
 
   const handleOperationModel = (event) => {
     setAnchorEl(event.currentTarget);
